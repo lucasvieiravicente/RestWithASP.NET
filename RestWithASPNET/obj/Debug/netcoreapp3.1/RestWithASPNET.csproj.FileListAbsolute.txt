@@ -10,8 +10,6 @@ C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithAS
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.csprojAssemblyReference.cache
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.AssemblyInfoInputs.cache
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.AssemblyInfo.cs
-C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.csproj.CoreCompileInputs.cache
-C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\RestWithASPNET.RazorTargetAssemblyInfo.cache
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\staticwebassets\RestWithASPNET.StaticWebAssets.Manifest.cache
 C:\Users\lucas\OneDrive\Área de Trabalho\ProjetoREST\restwithasp.net\RestWithASPNET\obj\Debug\netcoreapp3.1\staticwebassets\RestWithASPNET.StaticWebAssets.xml
