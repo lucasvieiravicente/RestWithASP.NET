@@ -4,36 +4,66 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestWithASPNET.Model;
+using RestWithASPNET.Services.Interfaces;
 
 namespace RestWithASPNET.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class PersonController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private IPersonService _appService;
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<PersonController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public PersonController(ILogger<PersonController> logger, IPersonService appService)
         {
             _logger = logger;
+            _appService = appService;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IActionResult Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return Ok(_appService.FindAll());
+        }
+
+        [HttpGet("{personId}")]        
+        public IActionResult Get(Guid personId)
+        {
+            var person = _appService.FindById(personId);
+
+            if (person == null)
+                return NotFound();
+            else
+                return Ok(person);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]Person person)
+        {
+            if (person == null)
+                return BadRequest();
+            else
+                return new ObjectResult(_appService.Create(person));
+        }
+
+        [HttpDelete("{personId}")]
+        public IActionResult Delete(Guid personId)
+        {
+            _appService.Delete(personId);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] Person person)
+        {
+            if (person == null)
+                return BadRequest();
+            else
+                return new ObjectResult(_appService.Update(person));
         }
     }
 }
