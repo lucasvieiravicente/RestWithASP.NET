@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
+using RestWithASPNET.Model.Context;
 using RestWithASPNET.Services;
 using RestWithASPNET.Services.Interfaces;
 
@@ -27,6 +30,8 @@ namespace RestWithASPNET
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("MySqlConnectionString");
+            services.AddDbContext<MySqlContext>(options => options.UseMySql(connection));
             services.AddControllers();
 
             services.AddScoped<IPersonService, PersonService>();
