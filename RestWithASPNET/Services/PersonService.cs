@@ -1,4 +1,5 @@
 ﻿using RestWithASPNET.Model;
+using RestWithASPNET.Model.Context;
 using RestWithASPNET.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,54 +10,70 @@ namespace RestWithASPNET.Services
 {
     public class PersonService : IPersonService
     {
-        public Person Create(Person person)
+        private MySqlContext _context;
+
+        public PersonService(MySqlContext context)
         {
+            _context = context;
+        }
+
+        public Person Create(Person person)
+        {                            
+            try
+            {
+                if (_context.Persons.Find(person.Id) == null)
+                {
+                    _context.Add(person);
+                    _context.SaveChanges();
+                }                
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return person;
         }
 
         public void Delete(Guid personId)
-        {            
-        }
-
-        public List<Person> FindAll()
         {
-            List<Person> personList = new List<Person>();
-
-            for(int i = 0; i < 8; i++)
+            var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(personId));
+            try
             {
-                personList.Add(MockPerson(i));
+                if (result != null)
+                {
+                    _context.Remove(result);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
-            return personList;
         }
 
-        public Person FindById(Guid personId)
-        {
-            return new Person()
-            {
-                Id = Guid.Parse("c2abd7ad-a7e4-4a73-af63-39472f1e8fdf"),
-                FirstName = "Lucas",
-                LastName = "Vieira Vicente",
-                Address = "Mauá - São Paulo, Brasil",
-                Gender = Gender.Masculine
-            };
-        }
+        public List<Person> FindAll() => _context.Persons.ToList();        
+
+        public Person FindById(Guid personId) => _context.Persons.Find(personId);                            
 
         public Person Update(Person person)
         {
+            if (!Exist(person.Id)) return new Person() { FirstName = "Not", LastName = "Exist" };            
+            
+            try
+            {
+                var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
+
+                _context.Entry(result).CurrentValues.SetValues(person);
+                _context.SaveChanges();                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return person;
         }
 
-        private Person MockPerson(int i)
-        {
-            return new Person()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = $"Person Name {i}",
-                LastName = $"Person LastName{i}",
-                Address = "Mauá - São Paulo, Brasil",
-                Gender = i % 2 == 0 ? Gender.Masculine : Gender.Female
-            };
-        }
+        private bool Exist(Guid id) => _context.Persons.Find(id) != null ? true : false;        
     }
 }
