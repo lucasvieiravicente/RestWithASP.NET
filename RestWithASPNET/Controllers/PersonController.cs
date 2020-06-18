@@ -8,13 +8,12 @@ using RestWithASPNET.Model;
 using RestWithASPNET.Services.Interfaces;
 
 namespace RestWithASPNET.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
+{    
+    [ApiVersion("1")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {
-        private IPersonService _appService;
-
+        private readonly IPersonService _appService;
         private readonly ILogger<PersonController> _logger;
 
         public PersonController(ILogger<PersonController> logger, IPersonService appService)

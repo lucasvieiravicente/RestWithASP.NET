@@ -33,6 +33,7 @@ namespace RestWithASPNET
             var connection = Configuration.GetConnectionString("MySqlConnectionString");
             services.AddDbContext<MySqlContext>(options => options.UseMySql(connection));
             services.AddControllers();
+            services.AddApiVersioning();
 
             services.AddScoped<IPersonService, PersonService>();
         }
