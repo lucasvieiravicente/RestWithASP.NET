@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using RestWithASPNET.Model.Context;
+using RestWithASPNET.Repository;
+using RestWithASPNET.Repository.Interfaces;
 using RestWithASPNET.Services;
 using RestWithASPNET.Services.Interfaces;
 
@@ -36,6 +38,7 @@ namespace RestWithASPNET
             services.AddApiVersioning();
 
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
