@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 namespace RestWithASPNET.Services
 {
     public class PersonService : IPersonService
-    {        
-        private IPersonRepository _personRepository;
+    {
+        private IRepository<Person> _repository;
 
-        public PersonService(IPersonRepository personRepository)
+        public PersonService(IRepository<Person> repository)
         {
-            _personRepository = personRepository;
+            _repository = repository;
         }
 
         public void Delete(Guid personId)
         {
-            _personRepository.Delete(personId);
+            _repository.Delete(personId);
         }
 
-        public Person Create(Person person) => _personRepository.Create(person);
+        public Person Create(Person person) => _repository.Create(person);
 
-        public Person Update(Person person) => _personRepository.Update(person);
+        public Person Update(Person person) => _repository.Update(person);
 
-        public List<Person> FindAll() => _personRepository.FindAll();
+        public List<Person> FindAll() => _repository.FindAll();
 
-        public Person FindById(Guid personId) => _personRepository.FindById(personId);                        
+        public Person FindById(Guid personId) => _repository.FindById(personId);                        
     }
 }
