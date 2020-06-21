@@ -22,18 +22,19 @@ namespace RestWithASPNET
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+        }        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration.GetConnectionString("MySqlConnectionString");
-            services.AddDbContext<MySqlContext>(options => options.UseMySql(connection));
+            var connectionString = Configuration.GetConnectionString("MySqlConnectionString");
+            services.AddDbContext<MySqlContext>(options => options.UseMySql(connectionString));
+
             services.AddControllers();
             services.AddApiVersioning();
 

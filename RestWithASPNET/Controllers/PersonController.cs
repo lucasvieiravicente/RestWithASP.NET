@@ -44,6 +44,7 @@ namespace RestWithASPNET.Controllers
         {
             if (person == null)
                 return BadRequest();
+            
             else
                 return new ObjectResult(_appService.Create(person));
         }
@@ -61,8 +62,13 @@ namespace RestWithASPNET.Controllers
         {
             if (person == null)
                 return BadRequest();
+
+            var result = _appService.Update(person);
+
+            if (result == null)
+                return NoContent();
             else
-                return new ObjectResult(_appService.Update(person));
+                return new ObjectResult(result);
         }
     }
 }
