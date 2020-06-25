@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithASPNET.Model;
+using RestWithASPNET.Data.VO;
 using RestWithASPNET.Services.Interfaces;
 
 namespace RestWithASPNET.Controllers
@@ -25,7 +25,8 @@ namespace RestWithASPNET.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_appService.FindAll());
+            var personList = _appService.FindAll();
+            return Ok(personList);
         }
 
         [HttpGet("{personId}")]        
@@ -40,7 +41,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]Person person)
+        public IActionResult Post([FromBody]PersonVO person)
         {
             if (person == null)
                 return BadRequest();
@@ -58,7 +59,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody]PersonVO person)
         {
             if (person == null)
                 return BadRequest();

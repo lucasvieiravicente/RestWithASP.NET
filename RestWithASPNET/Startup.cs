@@ -37,6 +37,7 @@ namespace RestWithASPNET
 
             services.AddControllers();
             services.AddApiVersioning();
+            services.AddMvc().AddNewtonsoftJson();
 
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IBookService, BookService>();

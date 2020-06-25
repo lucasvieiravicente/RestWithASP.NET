@@ -1,4 +1,4 @@
-﻿using RestWithASPNET.Model;
+﻿using RestWithASPNET.Data.VO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ namespace RestWithASPNET.Services.Interfaces
 {
     public interface IPersonService
     {
-        Person Create(Person person);
-        Person FindById(Guid personId);
-        List<Person> FindAll();
-        Person Update(Person person);
+        PersonVO Create(PersonVO PersonVO);
+        PersonVO FindById(Guid personId);
+        List<PersonVO> FindAll();
+        PersonVO Update(PersonVO PersonVO);
         void Delete(Guid personId);
     }
 }

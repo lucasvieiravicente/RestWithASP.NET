@@ -1,4 +1,6 @@
-﻿using RestWithASPNET.Model;
+﻿using RestWithASPNET.Data.Converters;
+using RestWithASPNET.Data.VO;
+using RestWithASPNET.Model;
 using RestWithASPNET.Model.Context;
 using RestWithASPNET.Repository.Interfaces;
 using RestWithASPNET.Services.Interfaces;
@@ -12,10 +14,12 @@ namespace RestWithASPNET.Services
     public class PersonService : IPersonService
     {
         private IRepository<Person> _repository;
+        private readonly PersonConverter _converter;
 
         public PersonService(IRepository<Person> repository)
         {
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
         public void Delete(Guid personId)
@@ -23,12 +27,20 @@ namespace RestWithASPNET.Services
             _repository.Delete(personId);
         }
 
-        public Person Create(Person person) => _repository.Create(person);
+        public PersonVO Create(PersonVO person)
+        {   
+            var result = _repository.Create(_converter.Parse(person));
+            return _converter.Parse(result);
+        }
 
-        public Person Update(Person person) => _repository.Update(person);
+        public PersonVO Update(PersonVO person)
+        {
+            var result = _repository.Update(_converter.Parse(person));
+            return _converter.Parse(result);
+        }
 
-        public List<Person> FindAll() => _repository.FindAll();
+        public List<PersonVO> FindAll() => _converter.ParseList(_repository.FindAll());
 
-        public Person FindById(Guid personId) => _repository.FindById(personId);                        
+        public PersonVO FindById(Guid personId) => _converter.Parse(_repository.FindById(personId));                        
     }
 }
